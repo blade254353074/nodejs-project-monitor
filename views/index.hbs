@@ -1,0 +1,42 @@
+{{> header}}
+<div class="container">
+    <div class="project-list">
+        <div class="header">
+            <h3>我的项目列表</h3>
+            <a class="btn btn-default" href="/projects/add">添加项目</a>
+        </div>
+        <div class="content">
+            <ul>
+                {{#each projects}}
+                <li class='project-item'>
+                    <div class="left">
+                        <h4><a href="/projects/{{_id}}">{{name}}</a></h4>
+                        <time title="{{#timeFormatter create_at}}{{/timeFormatter}}">创建时间：{{#dateDiff create_at}}{{/dateDiff}}</time>
+                    </div>
+                    <div class="right">
+                        <p>负责人：{{pic}}</p>
+                        <p class="members">
+                            项目成员：
+                            {{#if members}}
+                                {{#each members}}
+                                    <span>{{name}}</span>
+                                {{/each}}
+                                <a href="/projects/{{_id}}/members">成员管理</a>
+                            {{else}}
+                            无成员，请先<a href="/projects/{{_id}}/members">添加成员</a>
+                            {{/if}}
+                        </p>
+                        <p>
+                            <a href="/projects/{{_id}}/settings">设置</a>
+                            <a href="/projects/{{_id}}/plans">计划</a>
+                            <a href="/projects/{{_id}}/monitor">监控</a>
+                        </p>
+                    </div>
+                </li>
+                {{else}}
+                    <p>还没有项目，请先添加项目</p>
+                {{/each}}
+            </ul>
+        </div>
+    </div>
+</div>

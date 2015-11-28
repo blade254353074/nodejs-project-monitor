@@ -1,0 +1,80 @@
+{{> header}}
+<div class="container">
+    {{#with project}}
+    <div class="boxed-group">
+        <h3>分组管理 - {{name}}</h3>
+        <p>项目工程分组，如原型设计、需求分析、UI设计、服务端开发、前端开发、测试工程等</p>
+        <div id="project" data-id="{{_id}}" class="boxed-group-inner clearfix">
+            <ul id="partsList">
+                {{#each parts}}
+                <li data-id="{{_id}}">
+                    <span>{{name}}</span>
+                    <button class="js-delete btn btn-danger">删除</button>
+                </li>
+                {{/each}}
+            </ul>
+            <div class="form-group">
+                <input id="partName" name="name" type="text" placeholder="分组名称" maxlength="20">
+                <button class="js-add">添加</button>
+            </div>
+            <p>
+                <a class="btn btn-default btn-link" href="/index">返回列表</a>
+            </p>
+        </div>
+    </div>
+    {{/with}}
+</div>
+<script src="/js/jquery.js" type="text/javascript"></script>
+<script type="text/javascript">
+$(function() {
+    var $partName = $('#partName'),
+        $partsList = $('#partsList'),
+        projectId = $('#project').data('id');
+
+    $partsList.on('click', '.js-delete', function(event) {
+        var $this = $(this),
+            $li = $this.closest('li'),
+            partId = $li.data('id');
+        if (!window.confirm('确认删除这条分组')) return;
+        $this.prop('disabled', true);
+        $.ajax({
+            url: '/projects/' + projectId + '/parts/' + partId,
+            type: 'DELETE',
+            dataType: 'json'
+        })
+        .done(function(data) {
+            $this.prop('disabled', false);
+            if (data.status) {
+                $li.remove();
+            } else {
+                alert('删除失败');
+            }
+        });
+    });
+    $('.js-add').on('click', function() {
+        var $this = $(this),
+            name = $partName.val().trim();
+        if (!name) return;
+        $this.prop('disabled', true);
+        $.ajax({
+            url: '/projects/' + projectId + '/parts',
+            type: 'POST',
+            dataType: 'json',
+            data: {name: name}
+        })
+        .done(function(data) {
+            $this.prop('disabled', false);
+            if (data.status) {
+                var $item = $('<li data-id="' + data.part._id + '">\n' + 
+                    '<span>' + data.part.name + '</span>\n' +
+                    '<button class="js-delete btn btn-danger">删除</button>\n' +
+                '</li>\n');
+                $partsList.append($item);
+                $partName.val('');
+            } else {
+                alert('添加失败');
+            }
+        });
+    });
+});
+</script>

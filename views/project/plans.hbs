@@ -1,0 +1,80 @@
+{{> header}}
+<div class="container">
+    {{#with project}}
+    <div class="boxed-group">
+        <h3>{{name}} - 项目计划</h3>
+        <div id="plans" data-id="{{_id}}" class="boxed-group-inner clearfix">
+            {{#if plans}}
+                <p><a href="/projects/{{_id}}/plans/add">添加项目计划</a></p>
+                <ul id="plansList">
+                {{#each plans}}
+                    <li data-id="{{_id}}">
+                        <p>
+                            <span>负责部分：{{charge_part.name}}</span>
+                        </p>
+                        <p>
+                            <span>负责人：{{pic.name}}</span>
+                            <span>联系方式：{{pic.contact}}</span>
+                        </p>
+                        <p>
+                            <span>计划开始时间：
+                                <time title="{{start_at}}">
+                                    {{#timeFormatter start_at "yyyy-MM-dd"}}{{/timeFormatter}}
+                                </time>
+                            </span>
+                            <span>计划完成时间：
+                                <time title="{{complete_at}}">
+                                    {{#timeFormatter complete_at "yyyy-MM-dd"}}{{/timeFormatter}}
+                                </time>
+                            </span>
+                        </p>
+                        <p>
+                            <span>资金预算：{{funds}}</span>
+                            <span>人力资源：{{manpower}}</span>
+                        </p>
+                        <p>
+                            <span>备注：{{remark}}</span>
+                        </p>
+                        <p>
+                            <a href="/projects/plans/{{_id}}" class="btn btn-primary">编辑</a>
+                            <button class="js-delete btn btn-danger">删除</button>
+                        </p>
+                    </li>
+                {{/each}}
+                </ul>
+            {{else}}
+            <p>目前还没有项目计划，请前往<a href="/projects/{{_id}}/plans/add">添加项目计划</a>添加计划。</p>
+            {{/if}}
+            <a class="btn btn-default btn-link" href="/index">返回列表</a>
+        </div>
+    </div>
+    {{/with}}
+</div>
+<script src="/js/jquery.js"></script>
+<script>
+$(function() {
+    var projectId = $('#plans').data('id');
+
+    $('#plansList').on('click', '.js-delete', function(event) {
+        event.preventDefault();
+        var $this = $(this),
+            $item = $this.closest('li'),
+            planId = $item.data('id');
+        if (!window.confirm('确认删除计划')) return;
+        $this.prop('disabled', true);
+        $.ajax({
+            url: '/projects/' + projectId + '/plans/' + planId,
+            type: 'DELETE',
+            dataType: 'json'
+        })
+        .done(function(data) {
+            $this.prop('disabled', false);
+            if (data.status) {
+                $item.remove();
+            } else {
+                alert('删除失败');
+            }
+        });
+    });
+});
+</script>
