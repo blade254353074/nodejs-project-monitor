@@ -18,6 +18,28 @@ hbs.registerHelper('block', function(name) {
     return val;
 });
 
+// hbs添加判断功能
+hbs.registerHelper("compare", function(v1, v2, options) {
+    if (v1 >= v2) {
+        return options.fn(this);
+    } else {
+        return options.inverse(this);
+    }
+});
+
+// hbs 判断空对象
+hbs.registerHelper("notEmpty", function(obj, options) {
+    var length = 0;
+    for (var key in obj) {
+        obj.hasOwnProperty(key) && length++;
+    }
+    if (length === 0) {
+        return options.inverse(this);
+    } else {
+        return options.fn(this);
+    }
+});
+
 hbs.registerHelper('timeFormatter', function(date, format) {
     if (!date) return;
     if (typeof format !== 'string') format = "yyyy-MM-dd HH:mm:ss";

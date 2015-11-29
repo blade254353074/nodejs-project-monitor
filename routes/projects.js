@@ -39,6 +39,39 @@ router.post('/add', function(req, res, next) {
     });
 });
 
+// 项目详情介面
+router.get('/:id', function(req, res, next) {
+    var id = req.params.id;
+
+    Projects.findById(id)
+        .populate({
+            path: 'parts members'
+        })
+        .exec(function(err, project) {
+            if (err) {
+                console.error(err);
+                return next();
+            }
+            if (!project) {
+                return next();
+            }
+            project.parts.forEach(function(part, index, list) {
+                Plans.findOne({
+                    'charge_part._id': part._id
+                }).exec(function(err, plan) {
+                        if (err) return console.error(err);
+                        part.plan = plan;
+                        if (index === list.length - 1) {
+                            res.render('project/detail', {
+                                title: '项目详情 - ' + project.name,
+                                project: project
+                            });
+                        }
+                    });
+            });
+        });
+});
+
 // 项目配置介面
 router.get('/:id/settings', function(req, res, next) {
     var projectId = req.params.id;
@@ -636,18 +669,16 @@ router.get('/:id/monitor', function(req, res, next) {
                         complete_at_min: complete_at - 86400000 * 60,
                         complete_at_max: complete_at + 86400000 * 30
                     };
-                    if (!elem.reality) {
-                        elem.monitor = {
-                            start_at: start_at,
-                            complete_at: complete_at,
-                        };
+                    if (!elem.complete) {
+                        elem.monitor.start_at = start_at;
+                        elem.monitor.complete_at = complete_at;
                     } else {
-                        elem.monitor = {
+                        elem.monitor = _.extendOwn(elem.monitor, {
                             start_at: new Date(elem.reality.start_at).valueOf(),
                             complete_at: new Date(elem.reality.complete_at).valueOf(),
                             funds: elem.reality.funds,
                             manpower: elem.reality.manpower
-                        };
+                        });
                     }
                 });
 

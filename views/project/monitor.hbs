@@ -39,7 +39,7 @@
                     {{#with monitor}}
                     <div class="form-group">
                         <label>实际开始时间：</label>
-                        <input class="js-date form-control" type="date" value="{{#timeFormatter ../start_at "yyyy-MM-dd"}}{{/timeFormatter}}">
+                        <input class="js-date form-control" type="date" value="{{#timeFormatter start_at "yyyy-MM-dd"}}{{/timeFormatter}}">
                         <div class="input-group">
                             <span class="input-group-addon">{{#timeFormatter start_at_min "yyyy-MM-dd"}}{{/timeFormatter}}</span>
                             <input class="js-date-range" type="range" name="start_at" min="{{start_at_min}}" max="{{start_at_max}}" step="86400000" value="{{start_at}}">
@@ -48,7 +48,7 @@
                     </div>
                     <div class="form-group">
                         <label>实际结束时间：</label>
-                        <input class="js-date form-control" type="date" value="{{#timeFormatter ../complete_at "yyyy-MM-dd"}}{{/timeFormatter}}">
+                        <input class="js-date form-control" type="date" value="{{#timeFormatter complete_at "yyyy-MM-dd"}}{{/timeFormatter}}">
                         <div class="input-group">
                             <span class="input-group-addon">{{#timeFormatter complete_at_min "yyyy-MM-dd"}}{{/timeFormatter}}</span>
                             <input class="js-date-range" type="range" name="complete_at" min="{{complete_at_min}}" max="{{complete_at_max}}" step="86400000" value="{{complete_at}}">
@@ -58,13 +58,13 @@
                     <div class="form-group">
                         <label>实际资金：</label>
                         <div class="input-group">
-                            <input class="js-range-text form-control" type="number" name="funds">
+                            <input class="js-range-text form-control" type="number" name="funds" value="{{funds}}">
                             <span class="input-group-addon">元</span>
                         </div>
                     </div>
                     <div class="form-group">
                         <label>实际人力：</label>
-                        <textarea class="form-control" name="manpower"></textarea>
+                        <textarea class="form-control" name="manpower">{{manpower}}</textarea>
                     </div>
                     <div class="form-group">
                         <input class="js-update form-control" type="submit" value="更新">

@@ -58,32 +58,14 @@ var planSchema = new Schema({
         default: false
     },
     reality: {
-        start_at: {
-            type: Date,
-            required: true
-        },
-        complete_at: {
-            type: Date,
-            required: true
-        },
+        start_at: Date,
+        complete_at: Date,
         // 提前/延误
-        time_diff: {
-            type: Number,
-            required: true
-        },
-        funds: {
-            type: Number,
-            required: true
-        },
+        time_diff: Number,
+        funds: Number,
         // 盈利/亏损
-        funds_diff: {
-            type: Number,
-            required: true
-        },
-        manpower: {
-            type: String,
-            required: true
-        }
+        funds_diff: Number,
+        manpower: String
     }
 }, {
     collection: 'plans'
