@@ -38,7 +38,7 @@ var planSchema = new Schema({
         required: true
     },
     funds: {
-        type: String,
+        type: Number,
         required: true
     },
     manpower: {
@@ -52,6 +52,38 @@ var planSchema = new Schema({
     belong_to: {
         type: Schema.Types.ObjectId,
         required: true
+    },
+    complete: {
+        type: Boolean,
+        default: false
+    },
+    reality: {
+        start_at: {
+            type: Date,
+            required: true
+        },
+        complete_at: {
+            type: Date,
+            required: true
+        },
+        // 提前/延误
+        time_diff: {
+            type: Number,
+            required: true
+        },
+        funds: {
+            type: Number,
+            required: true
+        },
+        // 盈利/亏损
+        funds_diff: {
+            type: Number,
+            required: true
+        },
+        manpower: {
+            type: String,
+            required: true
+        }
     }
 }, {
     collection: 'plans'

@@ -37,7 +37,7 @@ var projectSchema = new Schema({
         required: true
     },
     funds: {
-        type: String,
+        type: Number,
         required: true
     },
     manpower: {

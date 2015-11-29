@@ -44,7 +44,8 @@ router.get('/:id/settings', function(req, res, next) {
     var projectId = req.params.id;
     Projects.findById(projectId)
         .populate({
-            path: 'parts'
+            path: 'parts',
+            select: 'name'
         })
         .exec(function(err, project) {
             if (err) return console.error(err);
@@ -69,11 +70,17 @@ router.put('/:id/settings', function(req, res, next) {
         new: true // 为真则返回修改后的文档
     }, function(err, project) {
         if (err) return console.error(err);
-        console.log(project);
+
         if (project) {
-            res.render('project/settings', {
-                title: project.name,
-                project: project
+            project.populate({
+                path: 'parts',
+                select: 'name'
+            }, function(err, populateProject) {
+                if (err) return console.error(err);
+                res.render('project/settings', {
+                    title: '项目配置 - ' + populateProject.name,
+                    project: populateProject
+                });
             });
         } else {
             next();
@@ -603,6 +610,155 @@ router.delete('/:projectId/members/:memberId', function(req, res, next) {
             });
 
         });
+});
+
+// 监控介面
+router.get('/:id/monitor', function(req, res, next) {
+    var id = req.params.id;
+
+    Projects.findById(id)
+        .populate({
+            path: 'plans'
+        })
+        .exec(function(err, project) {
+            if (err) {
+                console.error(err);
+                return next();
+            }
+            if (project) {
+                _.each(project.plans, function(elem, index, list) {
+                    var start_at = new Date(elem.start_at).valueOf(),
+                        complete_at = new Date(elem.complete_at).valueOf();
+
+                    elem.monitor = {
+                        start_at_min: start_at - 86400000 * 30,
+                        start_at_max: start_at + 86400000 * 30,
+                        complete_at_min: complete_at - 86400000 * 60,
+                        complete_at_max: complete_at + 86400000 * 30
+                    };
+                    if (!elem.reality) {
+                        elem.monitor = {
+                            start_at: start_at,
+                            complete_at: complete_at,
+                        };
+                    } else {
+                        elem.monitor = {
+                            start_at: new Date(elem.reality.start_at).valueOf(),
+                            complete_at: new Date(elem.reality.complete_at).valueOf(),
+                            funds: elem.reality.funds,
+                            manpower: elem.reality.manpower
+                        };
+                    }
+                });
+
+                res.render('project/monitor', {
+                    title: '项目监控 - ' + project.name,
+                    project: project
+                });
+            } else {
+                next();
+            }
+        });
+});
+
+// 监控完成接口
+router.put('/:projectId/monitor/:planId', function(req, res, next) {
+    var projectId = req.params.projectId,
+        planId = req.params.planId;
+
+    Plans.findById(planId, function(err, plan) {
+        var planResult;
+        if (err) {
+            console.error(err);
+            return next();
+        }
+        if (plan) {
+            try {
+                planResult = {
+                    complete: true,
+                    reality: {
+                        start_at: req.body.start_at,
+                        complete_at: req.body.complete_at,
+                        // 预计完成 - 实际完成
+                        time_diff: (plan.complete_at - req.body.start_at) / 86400000,
+                        funds: req.body.funds,
+                        // 预计资金 - 实际资金
+                        funds_diff: plan.funds - req.body.funds,
+                        manpower: req.body.manpower
+                    }
+                }
+                Plans.findOneAndUpdate({
+                    _id: plan._id
+                }, {
+                    $set: planResult
+                }, {
+                    new: true
+                }, function(err, plan) {
+                    if (err) {
+                        console.error(err);
+                        return next();
+                    }
+                    if (plan) {
+                        res.json({
+                            status: true
+                        });
+                    } else {
+                        next();
+                    }
+                });
+            } catch (e) {
+                console.error(err);
+                return next();
+            }
+        } else {
+            next();
+        }
+    });
+
+    /* var planResult = {
+        complete: true,
+        reality: {
+            start_at: req.body.start_at,
+            complete_at: req.body.complete_at,
+            // 差几天
+            time_diff: (req.body.complete_at - req.body.start_at) / 86400000,
+            funds: req.body.funds,
+            // 差几元
+            funds_diff: 
+        }
+    }
+
+    Projects.findOneAndUpdate({
+        _id: projectId
+    }, {
+        $set: {
+            complete: true,
+            reality: {
+                start_at: req.body.start_at,
+                complete_at: req.body.complete_at,
+                time_delta: 
+            }
+        }
+    }, {
+        new: true // 为真则返回修改后的文档
+    }, function(err, project) {
+        if (err) return console.error(err);
+
+        if (project) {
+            project.populate({
+                path: 'parts',
+                select: 'name'
+            }, function(err, populateProject) {
+                if (err) return console.error(err);
+                res.render('project/settings', {
+                    title: '项目配置 - ' + populateProject.name,
+                    project: populateProject
+                });
+            });
+        } else {
+            next();
+        }
+    }); */
 });
 
 
