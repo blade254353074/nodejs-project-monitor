@@ -1,11 +1,84 @@
 @import "normalize";
+@import "bootstrap";
 @import "reboot";
 
 body {
-    padding: 50px;
-    font   : 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+    padding-bottom: 50px;
 }
 
-a {
-    color: #00B7FF;
+.project-list {
+    border       : 1px solid #ccc;
+    border-radius: 3px;
+
+    .header:before,
+    .header:after {
+        content: "";
+        display: table;
+    }
+
+    .header:after {
+        clear: both;
+    }
+
+    .header {
+        padding      : 10px;
+        border-bottom: 1px solid #ccc;
+    }
+
+    .header h3 {
+        float      : left;
+        margin     : 0;
+        line-height: 34px;
+    }
+
+    .content {
+
+    }
+
+    ul {
+        padding        : 0;
+        margin         : 0;
+        list-style-type: none;
+    }
+
+    .project-item {
+        padding      : 10px;
+        border-bottom: 1px solid #eee;
+    }
+
+    .project-item:nth-last-child(1) {
+        padding      : 10px;
+        border-bottom: 1px solid #eee;
+    }
+
+    .project-item:before,
+    .project-item:after {
+        content: "";
+        display: table;
+    }
+
+    .project-item:after {
+        clear: both;
+    }
+
+    .project-item > div {
+        float: left;
+    }
+
+    .project-item .left {
+        width: 50%;
+    }
+
+    .project-item .right {
+        text-align: right;
+        width     : 50%;
+    }
+
+    .project-item h4 {
+        margin: 0 0 8px;
+    }
+
+    .project-item p {
+        margin: 0 0 8px;
+    }
 }

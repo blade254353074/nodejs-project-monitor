@@ -1,80 +1,99 @@
 {{> header}}
 <div class="container">
     {{#with project}}
-    <div class="boxed-group">
-        <h2>项目名称：{{name}}</h2>
-        <div class="boxed-group-inner clearfix">
-            <p>
-                <span>总负责人：{{pic}}</span>
-                <span class="pull-right">联系方式：{{contact}}</span>
-            </p>
-            <p>
-                <span>项目计划开始时间：{{#timeFormatter start_at "yyyy-MM-dd"}}{{/timeFormatter}}</span>
-                <span class="pull-right">项目计划完成时间：{{#timeFormatter complete_at "yyyy-MM-dd"}}{{/timeFormatter}}</span>
-            </p>
-            <p>项目资金：{{funds}}<br>人力资源：{{funds}}<br>备注：{{remark}}</p>
-            <p>
-                项目成员：
-                {{#each members}}
-                <span>{{name}} </span> 
-                {{/each}}
-            </p>
-            {{#each parts}}
-            <div class="boxed-group">
-                <h3>分组：{{name}}</h3>
-                <div class="boxed-group-inner clearfix">
-                    {{#with plan}}
-                        {{#if complete}}
-                        <div class="row">
-                            <div class="col-md-4">
-                                <p>预计开始时间：{{#timeFormatter start_at "yyyy-MM-dd"}}{{/timeFormatter}}</p>
-                                <p>预计开始时间：{{#timeFormatter reality.start_at "yyyy-MM-dd"}}{{/timeFormatter}}</p>
-                                <p>预算：{{funds}}元</p>
-                                <p>负责人：{{pic.name}}</p>
-                            </div>
-                            <div class="col-md-4">
-                                <p>预计完成时间：{{#timeFormatter complete_at "yyyy-MM-dd"}}{{/timeFormatter}}</p>
-                                <p>预计完成时间：{{#timeFormatter reality.complete_at "yyyy-MM-dd"}}{{/timeFormatter}}</p>
-                                <p>成本：{{reality.funds}}元</p>
-                                <p>联系方式：{{pic.contact}}</p></div>
-                            <div class="col-md-4">
-                                {{#compare complete_at reality.complete_at}}
-                                <p>提前：{{reality.time_diff}}天</p>
+        <div class="boxed-group">
+            <h2>项目名称：{{name}}</h2>
+            <div class="boxed-group-inner clearfix">
+                <p>
+                    <span>总负责人：{{pic}}</span>
+                    <span class="pull-right">联系方式：{{contact}}</span>
+                </p>
+                <p>
+                    <span>项目计划开始时间：
+                        {{#timeFormatter start_at "yyyy-MM-dd"}}{{/timeFormatter}}
+                    </span>
+                    <span class="pull-right">项目计划完成时间：
+                        {{#timeFormatter complete_at "yyyy-MM-dd"}}{{/timeFormatter}}
+                    </span>
+                </p>
+                <p>项目资金：{{funds}}
+                    <br>人力资源：{{funds}}
+                    <br>备注：{{remark}}</p>
+                <p>
+                    项目成员：
+                    {{#each members}}
+                        <span>{{name}} </span>
+                    {{/each}}
+                </p>
+                {{#each parts}}
+                    <div class="boxed-group">
+                        <h3>分组：{{name}}</h3>
+                        <div class="boxed-group-inner clearfix">
+                            {{#with plan}}
+                                {{#if complete}}
+                                    <div class="row">
+                                        <div class="col-md-4">
+                                            <p>预计开始时间：
+                                                {{#timeFormatter start_at "yyyy-MM-dd"}}{{/timeFormatter}}
+                                            </p>
+                                            <p>预计开始时间：
+                                                {{#timeFormatter reality.start_at "yyyy-MM-dd"}}{{/timeFormatter}}
+                                            </p>
+                                            <p>预算：{{funds}}元</p>
+                                            <p>负责人：{{pic.name}}</p>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <p>预计完成时间：
+                                                {{#timeFormatter complete_at "yyyy-MM-dd"}}{{/timeFormatter}}
+                                            </p>
+                                            <p>预计完成时间：
+                                                {{#timeFormatter reality.complete_at "yyyy-MM-dd"}}{{/timeFormatter}}
+                                            </p>
+                                            <p>成本：{{reality.funds}}元</p>
+                                            <p>联系方式：{{pic.contact}}</p>
+                                        </div>
+                                        <div class="col-md-4">
+                                            {{#compare complete_at reality.complete_at}}
+                                                <p>提前：{{reality.time_diff}}天</p>
+                                            {{else}}
+                                                <p>延误：{{reality.time_diff}}天</p>
+                                            {{/compare}}
+                                            {{#compare funds reality.funds}}
+                                                <p>盈利：{{reality.funds_diff}}元</p>
+                                            {{else}}
+                                                <p>亏损：{{reality.funds_diff}}元</p>
+                                            {{/compare}}
+                                        </div>
+                                    </div>
                                 {{else}}
-                                <p>延误：{{reality.time_diff}}天</p>
-                                {{/compare}}
-                                {{#compare funds reality.funds}}
-                                <p>盈利：{{reality.funds_diff}}元</p>
+                                    <div class="row">
+                                        <div class="col-md-4">
+                                            <p>预计开始时间：
+                                                {{#timeFormatter start_at "yyyy-MM-dd"}}{{/timeFormatter}}
+                                            </p>
+                                            <p>预算：{{funds}}元</p>
+                                            <p>负责人：{{pic.name}}</p>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <p>预计完成时间：
+                                                {{#timeFormatter complete_at "yyyy-MM-dd"}}{{/timeFormatter}}
+                                            </p>
+                                            <p>联系方式：{{pic.contact}}</p>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <p>未填写监控信息，请前往<a href="/projects/{{../../../_id}}/monitor">项目监控</a>添加。</p>
+                                        </div>
+                                    </div>
+                                {{/if}}
                                 {{else}}
-                                <p>亏损：{{reality.funds_diff}}元</p>
-                                {{/compare}}
-                            </div>
+                                    <p>此分组未添加计划，请前往<a href="/projects/{{../../_id}}/plans/add">计划管理</a>添加计划。</p>
+                            {{/with}}
                         </div>
-                        {{else}}
-
-                        <div class="row">
-                            <div class="col-md-4">
-                                <p>预计开始时间：{{#timeFormatter start_at "yyyy-MM-dd"}}{{/timeFormatter}}</p>
-                                <p>预算：{{funds}}元</p>
-                                <p>负责人：{{pic.name}}</p>
-                            </div>
-                            <div class="col-md-4">
-                                <p>预计完成时间：{{#timeFormatter complete_at "yyyy-MM-dd"}}{{/timeFormatter}}</p>
-                                <p>联系方式：{{pic.contact}}</p></div>
-                            <div class="col-md-4">
-                                <p>未填写监控信息，请前往<a href="/projects/{{../../../_id}}/monitor">项目监控</a>添加。</p>
-                            </div>
-                        </div>
-                        {{/if}}
+                    </div>
                     {{else}}
-                    <p>此分组未添加计划，请前往<a href="/projects/{{../../_id}}/plans/add">计划管理</a>添加计划。</p>
-                    {{/with}}
-                </div>
+                        <p>目前还没有项目分组，请前往<a href="/projects/{{_id}}/parts">项目分组管理</a>添加分组。</p>
+                {{/each}}
             </div>
-            {{else}}
-            <p>目前还没有项目分组，请前往<a href="/projects/{{_id}}/parts">项目分组管理</a>添加分组。</p>
-            {{/each}}
         </div>
-    </div>
     {{/with}}
 </div>

@@ -1,84 +1,84 @@
 {{> header}}
 <div class="container">
-    {{#with project}}
-    <div class="boxed-group">
-        <h3>{{name}} - 项目监控</h3>
-        <div id="monitor" data-id="{{_id}}" class="boxed-group-inner clearfix">
-            {{#each plans}}
-            <div class="row">
-                <div class="col-md-6">
-                    <h3>{{charge_part.name}}</h3>
-                    <div class="meta">
-                        <p>
-                            <span>负责人： {{pic.name}}</span>
-                            <span>联系方式： {{pic.contact}}</span>
-                        </p>
-                        <p>
-                            <span>计划开始时间：
-                                <time title="{{start_at}}">
-                                    {{#timeFormatter start_at "yyyy-MM-dd"}}{{/timeFormatter}}
-                                </time>
-                            </span>
-                            <span>计划完成时间：
-                                <time title="{{complete_at}}">
-                                    {{#timeFormatter complete_at "yyyy-MM-dd"}}{{/timeFormatter}}
-                                </time>
-                            </span>
-                        </p>
-                        <p>
-                            <span>资金预算：{{funds}}</span>
-                            <span>人力资源：{{manpower}}</span>
-                        </p>
-                        <p>
-                            <span>备注：{{remark}}</span>
-                        </p>
-                    </div>
-                </div>
-                <div class="col-md-6">
-                    <form action="/projects/{{../_id}}/monitor/{{_id}}" method="POST">
-                    {{#with monitor}}
-                    <div class="form-group">
-                        <label>实际开始时间：</label>
-                        <input class="js-date form-control" type="date" value="{{#timeFormatter start_at "yyyy-MM-dd"}}{{/timeFormatter}}">
-                        <div class="input-group">
-                            <span class="input-group-addon">{{#timeFormatter start_at_min "yyyy-MM-dd"}}{{/timeFormatter}}</span>
-                            <input class="js-date-range" type="range" name="start_at" min="{{start_at_min}}" max="{{start_at_max}}" step="86400000" value="{{start_at}}">
-                            <span class="input-group-addon">{{#timeFormatter start_at_max "yyyy-MM-dd"}}{{/timeFormatter}}</span>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label>实际结束时间：</label>
-                        <input class="js-date form-control" type="date" value="{{#timeFormatter complete_at "yyyy-MM-dd"}}{{/timeFormatter}}">
-                        <div class="input-group">
-                            <span class="input-group-addon">{{#timeFormatter complete_at_min "yyyy-MM-dd"}}{{/timeFormatter}}</span>
-                            <input class="js-date-range" type="range" name="complete_at" min="{{complete_at_min}}" max="{{complete_at_max}}" step="86400000" value="{{complete_at}}">
-                            <span class="input-group-addon">{{#timeFormatter complete_at_max "yyyy-MM-dd"}}{{/timeFormatter}}</span>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label>实际资金：</label>
-                        <div class="input-group">
-                            <input class="js-range-text form-control" type="number" name="funds" value="{{funds}}">
-                            <span class="input-group-addon">元</span>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label>实际人力：</label>
-                        <textarea class="form-control" name="manpower">{{manpower}}</textarea>
-                    </div>
-                    <div class="form-group">
-                        <input class="js-update form-control" type="submit" value="更新">
-                    </div>
-                    {{/with}}
-                </form>
+{{#with project}}
+<div class="boxed-group">
+    <h3>{{name}} - 项目监控</h3>
+    <div id="monitor" data-id="{{_id}}" class="boxed-group-inner clearfix">
+        {{#each plans}}
+        <div class="row">
+            <div class="col-md-6">
+                <h3>{{charge_part.name}}</h3>
+                <div class="meta">
+                    <p>
+                        <span>负责人： {{pic.name}}</span>
+                        <span>联系方式： {{pic.contact}}</span>
+                    </p>
+                    <p>
+                        <span>计划开始时间：
+                            <time title="{{start_at}}">
+                                {{#timeFormatter start_at "yyyy-MM-dd"}}{{/timeFormatter}}
+                            </time>
+                        </span>
+                        <span>计划完成时间：
+                            <time title="{{complete_at}}">
+                                {{#timeFormatter complete_at "yyyy-MM-dd"}}{{/timeFormatter}}
+                            </time>
+                        </span>
+                    </p>
+                    <p>
+                        <span>资金预算：{{funds}}</span>
+                        <span>人力资源：{{manpower}}</span>
+                    </p>
+                    <p>
+                        <span>备注：{{remark}}</span>
+                    </p>
                 </div>
             </div>
-            {{else}}
-            <p>此项目尚未添加计划，请前往<a href="/projects/{{../_id}}/plans/add">计划管理</a>添加计划。</p>
-            {{/each}}
+            <div class="col-md-6">
+                <form action="/projects/{{../_id}}/monitor/{{_id}}" method="POST">
+                {{#with monitor}}
+                <div class="form-group">
+                    <label>实际开始时间：</label>
+                    <input class="js-date form-control" type="date" value="{{#timeFormatter start_at "yyyy-MM-dd"}}{{/timeFormatter}}">
+                    <div class="input-group">
+                        <span class="input-group-addon">{{#timeFormatter start_at_min "yyyy-MM-dd"}}{{/timeFormatter}}</span>
+                        <input class="js-date-range" type="range" name="start_at" min="{{start_at_min}}" max="{{start_at_max}}" step="86400000" value="{{start_at}}">
+                        <span class="input-group-addon">{{#timeFormatter start_at_max "yyyy-MM-dd"}}{{/timeFormatter}}</span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>实际结束时间：</label>
+                    <input class="js-date form-control" type="date" value="{{#timeFormatter complete_at "yyyy-MM-dd"}}{{/timeFormatter}}">
+                    <div class="input-group">
+                        <span class="input-group-addon">{{#timeFormatter complete_at_min "yyyy-MM-dd"}}{{/timeFormatter}}</span>
+                        <input class="js-date-range" type="range" name="complete_at" min="{{complete_at_min}}" max="{{complete_at_max}}" step="86400000" value="{{complete_at}}">
+                        <span class="input-group-addon">{{#timeFormatter complete_at_max "yyyy-MM-dd"}}{{/timeFormatter}}</span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>实际资金：</label>
+                    <div class="input-group">
+                        <input class="js-range-text form-control" type="number" name="funds" value="{{funds}}">
+                        <span class="input-group-addon">元</span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>实际人力：</label>
+                    <textarea class="form-control" name="manpower">{{manpower}}</textarea>
+                </div>
+                <div class="form-group">
+                    <input class="js-update form-control" type="submit" value="更新">
+                </div>
+                {{/with}}
+            </form>
+            </div>
         </div>
+        {{else}}
+        <p>此项目尚未添加计划，请前往<a href="/projects/{{../_id}}/plans/add">计划管理</a>添加计划。</p>
+        {{/each}}
     </div>
-    {{/with}}
+</div>
+{{/with}}
 </div>
 <script src="/js/jquery.js"></script>
 <script>

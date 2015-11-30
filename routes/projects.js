@@ -393,7 +393,13 @@ router.post('/:id/plans/add', function(req, res, next) {
                             error: errorMsg
                         });
                     }
-
+                    Parts.findByIdAndUpdate(charge_partId, {
+                        $set: {
+                            used: true
+                        }
+                    }, function(err, raw) {
+                        if (err) return console.error(err);
+                    });
                     if (_.isArray(project.plans)) {
                         project.plans.push(plan._id);
                     } else {
