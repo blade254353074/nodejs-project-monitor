@@ -18,7 +18,7 @@
                                 <time title="{{start_at}}">
                                     {{#timeFormatter start_at "yyyy-MM-dd"}}{{/timeFormatter}}
                                 </time>
-                            </span>                   
+                            </span>
                             <span>计划完成时间：
                                 <time title="{{complete_at}}">
                                     {{#timeFormatter complete_at "yyyy-MM-dd"}}{{/timeFormatter}}
@@ -73,6 +73,8 @@
                 </form>
                 </div>
             </div>
+            {{else}}
+            <p>此项目尚未添加计划，请前往<a href="/projects/{{../_id}}/plans/add">计划管理</a>添加计划。</p>
             {{/each}}
         </div>
     </div>
@@ -139,7 +141,7 @@ $(function() {
             }
             alert('更新成功');
         });
-        
+
     });
 });
 </script>

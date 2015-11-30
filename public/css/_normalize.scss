@@ -1,8 +1,7 @@
 /*! normalize.css v3.0.3 | MIT License | github.com/necolas/normalize.css */
-
 html {
-    font-family: sans-serif;
-    -ms-text-size-adjust: 100%;
+    font-family             : sans-serif;
+    -ms-text-size-adjust    : 100%;
     -webkit-text-size-adjust: 100%;
 }
 
@@ -30,13 +29,13 @@ audio,
 canvas,
 progress,
 video {
-    display: inline-block;
+    display       : inline-block;
     vertical-align: baseline;
 }
 
 audio:not([controls]) {
     display: none;
-    height: 0;
+    height : 0;
 }
 
 [hidden],
@@ -67,13 +66,13 @@ dfn {
 }
 
 h1 {
-    margin: .67em 0;
+    margin   : 0.67em 0;
     font-size: 2em;
 }
 
 mark {
     background: #ff0;
-    color: #000;
+    color     : #000;
 }
 
 small {
@@ -82,10 +81,10 @@ small {
 
 sub,
 sup {
-    position: relative;
+    position      : relative;
     vertical-align: baseline;
-    font-size: 75%;
-    line-height: 0;
+    font-size     : 75%;
+    line-height   : 0;
 }
 
 sup {
@@ -110,7 +109,7 @@ figure {
 
 hr {
     box-sizing: content-box;
-    height: 0;
+    height    : 0;
 }
 
 pre {
@@ -121,7 +120,7 @@ code,
 kbd,
 pre,
 samp {
-    font-size: 1em;
+    font-size  : 1em;
     font-family: monospace, monospace;
 }
 
@@ -131,8 +130,8 @@ optgroup,
 select,
 textarea {
     margin: 0;
-    color: inherit;
-    font: inherit;
+    color : inherit;
+    font  : inherit;
 }
 
 button {
@@ -148,7 +147,7 @@ button,
 html input[type=button],
 input[type=reset],
 input[type=submit] {
-    cursor: pointer;
+    cursor            : pointer;
     -webkit-appearance: button;
 }
 
@@ -160,7 +159,7 @@ html input[disabled] {
 button::-moz-focus-inner,
 input::-moz-focus-inner {
     padding: 0;
-    border: 0;
+    border : 0;
 }
 
 input {
@@ -170,7 +169,7 @@ input {
 input[type=checkbox],
 input[type=radio] {
     box-sizing: border-box;
-    padding: 0;
+    padding   : 0;
 }
 
 input[type=number]::-webkit-inner-spin-button,
@@ -179,7 +178,7 @@ input[type=number]::-webkit-outer-spin-button {
 }
 
 input[type=search] {
-    box-sizing: content-box;
+    box-sizing        : content-box;
     -webkit-appearance: textfield;
 }
 
@@ -189,14 +188,14 @@ input[type=search]::-webkit-search-decoration {
 }
 
 fieldset {
-    margin: 0 2px;
-    padding: .35em .625em .75em;
-    border: 1px solid silver;
+    margin : 0 2px;
+    padding: 0.35em 0.625em 0.75em;
+    border : 1px solid silver;
 }
 
 legend {
     padding: 0;
-    border: 0;
+    border : 0;
 }
 
 textarea {
@@ -209,7 +208,7 @@ optgroup {
 
 table {
     border-collapse: collapse;
-    border-spacing: 0;
+    border-spacing : 0;
 }
 
 td,
