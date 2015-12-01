@@ -18,9 +18,18 @@ hbs.registerHelper('block', function(name) {
     return val;
 });
 
-// hbs添加判断功能
+// hbs添加判断功能 - 大于
 hbs.registerHelper("compare", function(v1, v2, options) {
     if (v1 >= v2) {
+        return options.fn(this);
+    } else {
+        return options.inverse(this);
+    }
+});
+
+// hbs添加判断功能 - 等于
+hbs.registerHelper("equal", function(v1, v2, options) {
+    if (v1 == v2) {
         return options.fn(this);
     } else {
         return options.inverse(this);

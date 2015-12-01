@@ -2,8 +2,25 @@
 @import "bootstrap";
 @import "reboot";
 
+@mixin text-overflow {
+    overflow     : hidden;
+    text-overflow: ellipsis;
+    white-space  : nowrap;
+}
+
 body {
     padding-bottom: 50px;
+}
+
+.form-signin {
+    max-width: 330px;
+    padding  : 15px;
+    margin   : 0 auto;
+}
+
+.form-wrapper {
+    max-width: 330px;
+    padding  : 15px;
 }
 
 .project-list {
@@ -80,5 +97,22 @@ body {
 
     .project-item p {
         margin: 0 0 8px;
+    }
+}
+
+#membersList {
+    line-height: 34px;
+    li {
+        margin-bottom: 10px;
+    }
+    .attr {
+        display: inline-block;
+        width: 140px;
+        margin-right: 8px;
+        @include text-overflow;
+    }
+
+    .btn {
+        vertical-align: top;
     }
 }

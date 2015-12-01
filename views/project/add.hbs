@@ -1,6 +1,7 @@
 {{> header}}
 <div class="container">
-    <form action="/projects/add" method="POST">
+    <form class="form-wrapper" action="/projects/add" method="POST">
+        <h3 class="form-header">添加项目</h3>
         <div class="form-group">
             <label>项目名称：</label>
             <input class="form-control" name="name" type="text">
@@ -35,6 +36,6 @@
         </div>
         <p>{{error_tip}}</p>
         <input class="btn btn-primary" type="submit" value="确认添加">
-        <a href="/index">返回列表</a>
+        <a class="btn btn-info" href="/index">返回列表</a>
     </form>
 </div>

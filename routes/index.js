@@ -7,7 +7,7 @@ mongoose.connect('mongodb://localhost/project');
 var db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));
 db.on('open', function(callback) {
-    console.log('数据库连接成功');
+    console.log('connection success:');
 });
 
 
