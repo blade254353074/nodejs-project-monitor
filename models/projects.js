@@ -51,6 +51,11 @@ var projectSchema = new Schema({
         type: Schema.Types.ObjectId,
         required: true
     },
+    delete: {
+        type: Boolean,
+        required: true,
+        default: false
+    },
     // 分组
     parts: [{
         type: Schema.Types.ObjectId,

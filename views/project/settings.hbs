@@ -1,11 +1,64 @@
 {{> header}}
 <div class="container">
     {{#with project}}
-    <div class="boxed-group">
-        <h3>项目分组</h3>
+    <div class="boxed-group" style="display:inline-block;">
+        <h3>项目配置
+            <form class="pull-right" action="/projects/{{_id}}" method="POST">
+                <input type="hidden" name="_method" value="DELETE">
+                <input class="btn btn-danger pull-right" type="submit" value="删除项目">
+            </form>
+        </h3>
+        <div class="boxed-group-inner clearfix">
+            <form action="/projects/{{_id}}" method="POST">
+                <div class="form-group">
+                    <label>项目名称：</label>
+                    <input class="form-control" name="name" type="text"
+                            value="{{name}}">
+                </div>
+                <div class="form-group">
+                    <label>负责人：</label>
+                    <input class="form-control" name="pic" type="text"
+                            value="{{pic}}">
+                </div>
+                <div class="form-group">
+                    <label>联系方式：</label>
+                    <input class="form-control" name="contact" type="tel"
+                            value="{{contact}}">
+                </div>
+                <div class="form-group">
+                    <label>启动时间：</label>
+                    <input class="form-control" name="start_at" type="date"
+                            value="{{#timeFormatter start_at "yyyy-MM-dd"}}{{/timeFormatter}}">
+                </div>
+                <div class="form-group">
+                    <label>预计完成时间：</label>
+                    <input class="form-control" name="complete_at" type="date"
+                            value="{{#timeFormatter complete_at "yyyy-MM-dd"}}{{/timeFormatter}}">
+                </div>
+                <div class="form-group">
+                    <label>资金预算：</label>
+                    <input class="form-control" name="funds" type="number"
+                            value="{{funds}}">
+                </div>
+                <div class="form-group">
+                    <label>人力资源：</label>
+                    <textarea class="form-control" name="manpower">{{manpower}}</textarea>
+                </div>
+                <div class="form-group">
+                    <label>备注：</label>
+                    <textarea class="form-control" name="remark">{{remark}}</textarea>
+                </div>
+                <p>{{error_tip}}</p>
+                <input name="_method" type="hidden" value="PUT">
+                <input class="btn btn-primary" type="submit" value="更新配置">
+                <a class="btn btn-default" href="/index">返回列表</a>
+            </form>
+        </div>
+    </div>
+    <div class="boxed-group" style="display:inline-block;vertical-align: top;margin-left:10px;">
+        <h3>项目分组<a class="btn btn-default pull-right" href="/projects/{{_id}}/parts">项目分组管理</a></h3>
         <div class="boxed-group-inner clearfix">
             {{#if parts}}
-                <p><a href="/projects/{{_id}}/parts">项目分组管理</a></p>
                 <ul>
                 {{#each parts}}
                     <li>{{name}}</li>
@@ -14,55 +67,6 @@
             {{else}}
             <p>目前还没有项目分组，请前往<a href="/projects/{{_id}}/parts">项目分组管理</a>添加分组。</p>
             {{/if}}
-        </div>
-    </div>
-    <div class="boxed-group">
-        <h3>项目配置</h3>
-        <div class="boxed-group-inner clearfix">
-            <form action="/projects/{{_id}}/settings" method="POST">
-            <div class="form-group">
-                <label>项目名称：</label>
-                <input class="form-control" name="name" type="text"
-                        value="{{name}}">
-            </div>
-            <div class="form-group">
-                <label>负责人：</label>
-                <input class="form-control" name="pic" type="text"
-                        value="{{pic}}">
-            </div>
-            <div class="form-group">
-                <label>联系方式：</label>
-                <input class="form-control" name="contact" type="tel"
-                        value="{{contact}}">
-            </div>
-            <div class="form-group">
-                <label>启动时间：</label>
-                <input class="form-control" name="start_at" type="date"
-                        value="{{#timeFormatter start_at "yyyy-MM-dd"}}{{/timeFormatter}}">
-            </div>
-            <div class="form-group">
-                <label>预计完成时间：</label>
-                <input class="form-control" name="complete_at" type="date"
-                        value="{{#timeFormatter complete_at "yyyy-MM-dd"}}{{/timeFormatter}}">
-            </div>
-            <div class="form-group">
-                <label>资金预算：</label>
-                <input class="form-control" name="funds" type="number"
-                        value="{{funds}}">
-            </div>
-            <div class="form-group">
-                <label>人力资源：</label>
-                <textarea class="form-control" name="manpower">{{manpower}}</textarea>
-            </div>
-            <div class="form-group">
-                <label>备注：</label>
-                <textarea class="form-control" name="remark">{{remark}}</textarea>
-            </div>
-            <p>{{error_tip}}</p>
-            <input name="_method" type="hidden" value="PUT">
-            <input class="btn btn-primary" type="submit" value="更新配置">
-            <a class="btn btn-default btn-link" href="/index">返回列表</a>
-            </form>
         </div>
     </div>
     {{/with}}

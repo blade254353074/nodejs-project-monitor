@@ -2,41 +2,32 @@
 <div class="container">
     {{#with project}}
     <div class="boxed-group">
-        <h3>{{name}} - 项目计划</h3>
+        <h3>{{name}} - 项目计划<a class="btn btn-default pull-right" href="/projects/{{_id}}/plans/add">添加项目计划</a></h3>
         <div id="plans" data-id="{{_id}}" class="boxed-group-inner clearfix">
             {{#if plans}}
-                <p><a href="/projects/{{_id}}/plans/add">添加项目计划</a></p>
                 <ul id="plansList">
                 {{#each plans}}
                     <li data-id="{{_id}}">
+                        <p><span class="title">负责部分：</span>{{charge_part.name}}</p>
+                        <p><span class="title">负责人：</span>{{pic.name}}</p>
+                        <p><span class="title">联系方式：</span>{{pic.contact}}</p>
                         <p>
-                            <span>负责部分：{{charge_part.name}}</span>
+                            <span class="title">计划开始时间：</span>
+                            <time title="{{start_at}}">
+                                {{#timeFormatter start_at "yyyy-MM-dd"}}{{/timeFormatter}}
+                            </time>
                         </p>
                         <p>
-                            <span>负责人：{{pic.name}}</span>
-                            <span>联系方式：{{pic.contact}}</span>
+                            <span class="title">计划完成时间：</span>
+                            <time title="{{complete_at}}">
+                                {{#timeFormatter complete_at "yyyy-MM-dd"}}{{/timeFormatter}}
+                            </time>
                         </p>
+                        <p><span class="title">资金预算：</span>{{funds}}</p>
+                        <p><span class="title">人力资源：</span>{{manpower}}</p>
+                        <p><span class="title">备注：</span>{{remark}}</p>
                         <p>
-                            <span>计划开始时间：
-                                <time title="{{start_at}}">
-                                    {{#timeFormatter start_at "yyyy-MM-dd"}}{{/timeFormatter}}
-                                </time>
-                            </span>
-                            <span>计划完成时间：
-                                <time title="{{complete_at}}">
-                                    {{#timeFormatter complete_at "yyyy-MM-dd"}}{{/timeFormatter}}
-                                </time>
-                            </span>
-                        </p>
-                        <p>
-                            <span>资金预算：{{funds}}</span>
-                            <span>人力资源：{{manpower}}</span>
-                        </p>
-                        <p>
-                            <span>备注：{{remark}}</span>
-                        </p>
-                        <p>
-                            <a href="/projects/plans/{{_id}}" class="btn btn-primary">编辑</a>
+                            <a href="/projects/{{../_id}}/plans/{{_id}}" class="btn btn-primary">编辑</a>
                             <button class="js-delete btn btn-danger">删除</button>
                         </p>
                     </li>
@@ -45,7 +36,9 @@
             {{else}}
             <p>目前还没有项目计划，请前往<a href="/projects/{{_id}}/plans/add">添加项目计划</a>添加计划。</p>
             {{/if}}
-            <a class="btn btn-default btn-link" href="/index">返回列表</a>
+            <div style="margin-top: 15px;">
+                <a class="btn btn-default pull-right" href="/index">返回列表</a>
+            </div>
         </div>
     </div>
     {{/with}}

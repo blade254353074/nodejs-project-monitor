@@ -2,7 +2,7 @@
 <div class="container">
     {{#with project}}
         <div class="boxed-group">
-            <h3>成员管理 - {{name}}</h3>
+            <h3>成员管理 - {{name}}<a class="btn btn-default pull-right" href="/index">返回列表</a></h3>
             <div id="project" data-id="{{_id}}" class="boxed-group-inner clearfix">
                 <ul id="membersList">
                     {{#each members}}
@@ -20,9 +20,6 @@
                         <button class="js-add btn btn-success">添加</button>
                     </div>
                 </div>
-                <p>
-                    <a class="btn btn-default btn-link" href="/index">返回列表</a>
-                </p>
             </div>
         </div>
     {{/with}}

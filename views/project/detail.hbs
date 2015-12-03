@@ -1,8 +1,8 @@
 {{> header}}
 <div class="container">
     {{#with project}}
-        <div class="boxed-group">
-            <h2>项目名称：{{name}}</h2>
+        <div class="boxed-group" style="width: 740px;">
+            <h3>项目名称：{{name}}</h3>
             <div class="boxed-group-inner clearfix">
                 <p>
                     <span>总负责人：{{pic}}</span>
@@ -26,7 +26,7 @@
                     {{/each}}
                 </p>
                 {{#each parts}}
-                    <div class="boxed-group">
+                    <div class="boxed-group" style="width: 708px;">
                         <h3>分组：{{name}}</h3>
                         <div class="boxed-group-inner clearfix">
                             {{#with plan}}

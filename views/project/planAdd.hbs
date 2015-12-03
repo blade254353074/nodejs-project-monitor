@@ -2,7 +2,7 @@
 <div class="container">
     {{#with project}}
         <div class="boxed-group">
-            <h3>计划管理 - {{name}}</h3>
+            <h3>计划管理 - {{name}}<a class="btn btn-default pull-right" href="/projects/{{_id}}/plans">返回计划列表</a></h3>
             <div id="project" data-id="{{_id}}" class="boxed-group-inner clearfix">
                 {{#if members}}
                 <form id="planForm" action="/projects/{{_id}}/plans/add" method="POST">
@@ -47,9 +47,8 @@
                         <textarea class="form-control" name="remark"></textarea>
                     </div>
                     <br>
-                    <p id="tip" style="display: none;">{{error_tip}}</p>
-                    <input id="planSubmit" class="btn btn-primary" type="submit" value="确认添加">
-                    <a href="/projects/{{_id}}/plans">返回计划列表</a>
+                    <p id="tip" class="text-danger" style="display: none;">{{error_tip}}</p>
+                    <input id="planSubmit" class="btn btn-success" type="submit" value="确认添加">
                 </form>
                 {{else}}
                     <p>项目无成员，请先在<a href="/projects/{{_id}}/members">成员管理</a>介面中添加成员</p>

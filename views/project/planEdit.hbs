@@ -1,0 +1,106 @@
+{{> header}}
+<div class="container">
+    {{#with project}}
+        <div class="boxed-group">
+            <h3>计划管理 - {{name}}<a class="btn btn-default pull-right" href="/projects/{{_id}}/plans">返回计划列表</a></h3>
+            <div id="project" data-id="{{_id}}" class="boxed-group-inner clearfix">
+                <form id="planForm" action="/projects/{{_id}}/plans/{{plan._id}}" method="POST">
+                    <div class="form-group">
+                        <label>负责人：</label>
+                        <select class="form-control" name="pic._id">
+                        {{#each members}}
+                            <option value="{{_id}}"
+                              {{#equal _id plan.pic._id}}
+                              selected
+                              {{/equal}}
+                              >{{name}} - {{contact}}</option>
+                        {{else}}
+                            <option value="" disabled selected>项目无成员，请先添加成员</option>
+                        {{/each}}
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>负责部分：</label>
+                        <select class="form-control" name="charge_part._id">
+                        {{#each parts}}
+                            <option value="{{_id}}"
+                              {{#equal _id plan.charge_part._id}}
+                              selected
+                              {{/equal}}
+                              >{{name}}</option>
+                        {{else}}
+                            <option value="" disabled selected>项目无分组，请先添加分组</option>
+                        {{/each}}
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>计划开始时间：</label>
+                        <input class="form-control" name="start_at" type="date"
+                          value="{{#timeFormatter plan.start_at "yyyy-MM-dd"}}{{/timeFormatter}}">
+                    </div>
+                    <div class="form-group">
+                        <label>计划完成时间：</label>
+                        <input class="form-control" name="complete_at" type="date"
+                          value="{{#timeFormatter plan.complete_at "yyyy-MM-dd"}}{{/timeFormatter}}">
+                    </div>
+                    <div class="form-group">
+                        <label>资金预算：</label>
+                        <input class="form-control" name="funds" type="number"
+                          value="{{plan.funds}}">
+                    </div>
+                    <div class="form-group">
+                        <label>人力资源：</label>
+                        <textarea class="form-control" name="manpower">{{plan.manpower}}</textarea>
+                    </div>
+                    <div class="form-group">
+                        <label>备注：</label>
+                        <textarea class="form-control" name="remark">{{plan.remark}}</textarea>
+                    </div>
+                    <br>
+                    <p id="tip" class="text-danger" style="display: none;">{{error_tip}}</p>
+                    <input id="planSubmit" class="btn btn-success" type="submit" value="更新计划">
+                </form>
+            </div>
+        </div>
+    {{/with}}
+</div>
+<script src="/js/jquery.js"></script>
+<script>
+$(function() {
+var $planForm = $('#planForm'),
+    $planSubmit = $('#planSubmit'),
+    $tip =$('#tip'),
+    action = $planForm.attr('action');
+
+    $planSubmit.on('click', function(event) {
+        event.preventDefault();
+        var $this = $(this);
+        var dataObj = {},
+            dataArr = $planForm.serializeArray();
+        dataArr.forEach(function(elem, idx, list) {
+            dataObj[elem.name] = elem.value;
+        });
+        $this.prop('disabled', true);
+        $tip.hide();
+        $.ajax({
+            url: action,
+            type: 'PUT',
+            dataType: 'json',
+            data: dataObj
+        })
+        .done(function(res) {
+            $this.prop('disabled', false);
+            if (!res.status) {
+                var errorText = '';
+                res.error.forEach(function(elem, idx, list) {
+                    errorText += elem + '\n';
+                });
+                $tip.text(errorText).show();
+                return;
+            }
+            alert('修改成功');
+            window.location.reload();
+        });
+    });
+});
+</script>
