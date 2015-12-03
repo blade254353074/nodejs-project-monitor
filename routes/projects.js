@@ -55,14 +55,32 @@ router.get('/:id', function(req, res, next) {
       if (!project) {
         return next();
       }
+      var projectComplete = true;
+      var progress_money = 0, progress_time = 0;
       project.parts.forEach(function(part, index, list) {
         Plans.findOne({
             'charge_part._id': part._id
           })
           .exec(function(err, plan) {
             if (err) return console.error(err);
+            // 有未完成的计划
+            if (!plan || !plan.complete) {
+              projectComplete = false;
+            } else {
+              progress_money += plan.reality.funds_diff;
+              progress_time += plan.reality.time_diff;
+            }
             part.plan = plan;
+            // 遍历到最后一项，渲染页面
             if (index === list.length - 1) {
+              if (projectComplete) {
+                project.complete = true;
+                // 总时间（天）
+                project.total_day = (project.complete_at - project.start_at).valueOf() / 86400000;
+                project.total_day_diff = project.total_day - progress_time;
+                project.total_funds_diff = project.funds - progress_money;
+              }
+              console.log(project);
               res.render('project/detail', {
                 title: '项目详情 - ' + project.name,
                 project: project

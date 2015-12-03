@@ -17,7 +17,7 @@
                     </span>
                 </p>
                 <p>项目资金：{{funds}}
-                    <br>人力资源：{{funds}}
+                    <br>人力资源：{{manpower}}
                     <br>备注：{{remark}}</p>
                 <p>
                     项目成员：
@@ -59,7 +59,7 @@
                                                 <p>延误：{{reality.time_diff}}天</p>
                                             {{/compare}}
                                             {{#compare funds reality.funds}}
-                                                <p>盈利：{{reality.funds_diff}}元</p>
+                                                <p>节省：{{reality.funds_diff}}元</p>
                                             {{else}}
                                                 <p>亏损：{{reality.funds_diff}}元</p>
                                             {{/compare}}
@@ -85,14 +85,36 @@
                                         </div>
                                     </div>
                                 {{/if}}
-                                {{else}}
-                                    <p>此分组未添加计划，请前往<a href="/projects/{{../../_id}}/plans/add">计划管理</a>添加计划。</p>
+                            {{else}}
+                                <p>此分组未添加计划，请前往<a href="/projects/{{../../_id}}/plans/add">计划管理</a>添加计划。</p>
                             {{/with}}
                         </div>
                     </div>
                     {{else}}
                         <p>目前还没有项目分组，请前往<a href="/projects/{{_id}}/parts">项目分组管理</a>添加分组。</p>
                 {{/each}}
+                {{#if complete}}
+                  <p>
+                    项目已完成
+                  </p>
+                  <div class="project-result">
+                    项目结果：
+                    <p>
+                      {{#compare total_funds_diff 0}}
+                          <p>节省：{{total_funds_diff}}元</p>
+                      {{else}}
+                          <p>亏损：{{total_funds_diff}}元</p>
+                      {{/compare}}
+                    </p>
+                    <p>
+                      {{#compare total_day_diff 0}}
+                          <p>提前：{{total_day_diff}}天</p>
+                      {{else}}
+                          <p>延误：{{total_day_diff}}天</p>
+                      {{/compare}}
+                    </p>
+                  </div>
+                {{/if}}
             </div>
         </div>
     {{/with}}

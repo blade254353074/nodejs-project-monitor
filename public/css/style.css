@@ -8305,6 +8305,10 @@ body {
   border-bottom: 1px solid #ccc;
 }
 
+#partsList li {
+  margin-bottom: 10px;
+}
+
 .navigation {
   line-height: 30px;
 }

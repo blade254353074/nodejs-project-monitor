@@ -2,9 +2,9 @@
 <div class="container">
     {{#with project}}
     <div class="boxed-group">
-        <h3>分组管理 - {{name}}</h3>
-        <p>项目工程分组，如原型设计、需求分析、UI设计、服务端开发、前端开发、测试工程等</p>
+        <h3>分组管理 - {{name}}<a class="btn btn-default pull-right" href="/index">返回列表</a></h3>
         <div id="project" data-id="{{_id}}" class="boxed-group-inner clearfix">
+            <p>项目工程分组，如原型设计、需求分析、UI设计、服务端开发、前端开发、测试工程等</p>
             <ul id="partsList">
                 {{#each parts}}
                 <li data-id="{{_id}}">
@@ -13,13 +13,12 @@
                 </li>
                 {{/each}}
             </ul>
-            <div class="form-group">
-                <input id="partName" name="name" type="text" placeholder="分组名称" maxlength="20">
-                <button class="js-add">添加</button>
+            <div class="form-inline">
+                <div class="form-group">
+                    <input id="partName" class="form-control" name="name" type="text" placeholder="分组名称" maxlength="20">
+                    <button class="js-add btn btn-success">添加</button>
+                </div>
             </div>
-            <p>
-                <a class="btn btn-default btn-link" href="/index">返回列表</a>
-            </p>
         </div>
     </div>
     {{/with}}
@@ -65,7 +64,7 @@ $(function() {
         .done(function(data) {
             $this.prop('disabled', false);
             if (data.status) {
-                var $item = $('<li data-id="' + data.part._id + '">\n' + 
+                var $item = $('<li data-id="' + data.part._id + '">\n' +
                     '<span>' + data.part.name + '</span>\n' +
                     '<button class="js-delete btn btn-danger">删除</button>\n' +
                 '</li>\n');
