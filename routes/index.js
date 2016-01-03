@@ -17,21 +17,21 @@ var Users = require('../models/users'),
   Projects = require('../models/projects');
 
 /* 注册介面 */
-router.get('/signin', function(req, res, next) {
-  res.render('user/signin', {
+router.get('/signup', function(req, res, next) {
+  res.render('user/signup', {
     title: '用户注册'
   });
 });
 
 /* 注册请求 */
-router.post('/signin', function(req, res, next) {
+router.post('/signup', function(req, res, next) {
   var username = req.body.username,
     password = req.body.password;
 
   // 判断用户名密码 为不为空
   if (!username || !password) {
     return res.render('user/signup', {
-      title: title,
+      title: '用户注册',
       error_tip: '用户名或密码不能为空'
     });
   }
@@ -43,7 +43,7 @@ router.post('/signin', function(req, res, next) {
     if (err) return console.error(err);
     // 已存在
     if (user) {
-      return res.render('user/signin', {
+      return res.render('user/signup', {
         title: '用户注册',
         error_tip: '已存在此用户名'
       });
@@ -61,7 +61,7 @@ router.post('/signin', function(req, res, next) {
         _.each(err.errors, function(val, key, list) {
           errorMsg.push(val.message)
         });
-        return res.render('user/signin', {
+        return res.render('user/signup', {
           title: '用户注册',
           error_tip: '注册失败\n' + errorMsg.join('\n')
         });
@@ -79,20 +79,20 @@ router.get('/', function(req, res, next) {
   if (req.session.user_id) {
     return res.redirect('/index');
   }
-  res.render('user/signup', {
+  res.render('user/signin', {
     title: '软件项目监控系统'
   });
 });
 
 // 登录请求
-router.post('/signup', function(req, res, next) {
+router.post('/signin', function(req, res, next) {
   var title = '软件项目监控系统',
     username = req.body.username,
     password = req.body.password;
 
   // 判断用户名密码 为不为空
   if (!username || !password) {
-    return res.render('user/signup', {
+    return res.render('user/signin', {
       title: title,
       error_tip: '用户名或密码不能为空'
     });
@@ -113,7 +113,7 @@ router.post('/signup', function(req, res, next) {
       }
     }
     // 用户名/密码错误
-    return res.render('user/signup', {
+    return res.render('user/signin', {
       title: title,
       error_tip: '用户名或密码不正确'
     });

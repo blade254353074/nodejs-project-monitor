@@ -1,6 +1,6 @@
 <div class="container">
     <form class="form-signin" action="/signup" method="POST">
-        <h2 class="form-signin-heading">用户登录</h2>
+        <h2 class="form-signin-heading">用户注册</h2>
         <div class="form-group">
             <label for="username">用户名: </label>
             <input id="username" class="form-control" name="username" type="text" >
@@ -10,7 +10,7 @@
             <input id="password" class="form-control" name="password" type="password" >
         </div>
         <p class="text-danger">{{error_tip}}</p>
-        <input class="btn btn-primary" type="submit" value="登录" >
-        <a class="btn btn-default" href="/signin">注册</a>
+        <input class="btn btn-info" type="submit" value="注册" >
+        <a class="btn btn-default" href="/">登录</a>
     </form>
 </div>
