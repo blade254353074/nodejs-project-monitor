@@ -32,7 +32,7 @@ router.post('/add', function(req, res, next) {
       console.error(errorMsg);
       return res.render('project/add', {
         title: '添加项目',
-        error_tip: '添加项目\n' + errorMsg.join('\n')
+        error_tip: '添加项目出错\n' + errorMsg.join('\n')
       });
     }
     return res.redirect('/projects/' + project._id + '/parts');
