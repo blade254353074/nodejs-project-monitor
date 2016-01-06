@@ -1,11 +1,9 @@
+var request;
 var fs = require('fs');
 var app = require('../app');
-// var request = require('supertest')(app);
 var session = require('supertest-session');
 var should = require('should');
 var Q = require('q');
-
-var request;
 
 var Users = require('../models/users');
 
@@ -224,7 +222,7 @@ describe('site/test.js', function() {
     });
     it('should not add a project when manpower is not set', function(done) {
       var fakePhoneNumberData = new ProjectData();
-      delete  fakePhoneNumberData.manpower;
+      delete fakePhoneNumberData.manpower;
       request.post('/projects/add')
         .send(fakePhoneNumberData)
         .expect(200)
