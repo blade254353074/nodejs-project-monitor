@@ -56,7 +56,14 @@ router.get('/:id', function(req, res, next) {
         return next();
       }
       var projectComplete = true;
-      var progress_money = 0, progress_time = 0;
+      var progress_money = 0,
+        progress_time = 0;
+      if (_.isEmpty(project.parts)) {
+        return res.render('project/detail', {
+          title: '项目详情 - ' + project.name,
+          project: project
+        });
+      }
       project.parts.forEach(function(part, index, list) {
         Plans.findOne({
             'charge_part._id': part._id
@@ -526,26 +533,26 @@ router.put('/:projectId/plans/:planId', function(req, res, next) {
     planId = req.params.planId;
 
   Plans.findOneAndUpdate({
-      _id: planId
-    }, req.body, {
-      upsert: true,
-      new: true
-    }, function(err, plan) {
-      if (err) {
-        var errorMsg = [];
-        _.each(err.errors, function(val, key, list) {
-          errorMsg.push(val.message)
-        });
-        return res.json({
-          status: false,
-          error: errorMsg
-        });
-      }
-      // 更新成功
-      res.json({
-        status: true,
-        plan: plan
+    _id: planId
+  }, req.body, {
+    upsert: true,
+    new: true
+  }, function(err, plan) {
+    if (err) {
+      var errorMsg = [];
+      _.each(err.errors, function(val, key, list) {
+        errorMsg.push(val.message)
       });
+      return res.json({
+        status: false,
+        error: errorMsg
+      });
+    }
+    // 更新成功
+    res.json({
+      status: true,
+      plan: plan
+    });
   });
 });
 
