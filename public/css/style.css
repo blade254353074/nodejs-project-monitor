@@ -8237,6 +8237,14 @@ body {
 .project-list .project-item p {
   margin: 0 0 8px;
 }
+.project-list .project-item p span {
+  max-width: 200px;
+  display: inline-block;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  vertical-align: top;
+}
 
 #membersList {
   line-height: 34px;

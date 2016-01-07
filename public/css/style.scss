@@ -1,11 +1,10 @@
 @import "normalize";
 @import "bootstrap";
 @import "reboot";
-
 @mixin text-overflow {
-    overflow     : hidden;
+    overflow: hidden;
     text-overflow: ellipsis;
-    white-space  : nowrap;
+    white-space: nowrap;
 }
 
 body {
@@ -14,133 +13,119 @@ body {
 
 .form-signin {
     max-width: 330px;
-    padding  : 15px;
-    margin   : 0 auto;
+    padding: 15px;
+    margin: 0 auto;
 }
 
 .form-wrapper {
     max-width: 330px;
-    padding  : 15px;
+    padding: 15px;
 }
 
 .project-list {
-    border       : 1px solid #ccc;
+    border: 1px solid #ccc;
     border-radius: 3px;
-
     .header:before,
     .header:after {
         content: "";
         display: table;
     }
-
     .header:after {
         clear: both;
     }
-
     .header {
-        padding      : 10px;
+        padding: 10px;
         border-bottom: 1px solid #ccc;
     }
-
     .header h3 {
-        float      : left;
-        margin     : 0;
+        float: left;
+        margin: 0;
         line-height: 34px;
     }
-
-    .content {
-
-    }
-
+    .content {}
     ul {
-        padding        : 0;
-        margin         : 0;
+        padding: 0;
+        margin: 0;
         list-style-type: none;
     }
-
     .project-item {
-        padding      : 10px;
+        padding: 10px;
         border-bottom: 1px solid #eee;
     }
-
     .project-item:nth-last-child(1) {
-        padding      : 10px;
+        padding: 10px;
         border-bottom: 1px solid #eee;
     }
-
     .project-item:before,
     .project-item:after {
         content: "";
         display: table;
     }
-
     .project-item:after {
         clear: both;
     }
-
     .project-item > div {
         float: left;
     }
-
     .project-item .left {
         width: 50%;
     }
-
     .project-item .right {
         text-align: right;
-        width     : 50%;
+        width: 50%;
     }
-
     .project-item h4 {
         margin: 0 0 8px;
     }
-
     .project-item p {
         margin: 0 0 8px;
+        span {
+            max-width: 200px;
+            display: inline-block;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            vertical-align: top;
+        }
     }
 }
 
 #membersList {
     line-height: 34px;
-
     li {
         margin-bottom: 10px;
     }
-
     .attr {
-        display     : inline-block;
-        width       : 169px;
+        display: inline-block;
+        width: 169px;
         margin-right: 8px;
         @include text-overflow;
     }
-
     .btn {
         vertical-align: top;
     }
 }
 
 .boxed-group {
-    width        : 460px;
+    width: 460px;
     margin-bottom: 20px;
-    border       : 1px solid #ccc;
+    border: 1px solid #ccc;
     border-radius: 3px;
-
     & > h3 {
         padding: 10px 15px;
-        margin : 0;
+        margin: 0;
         line-height: 34px;
     }
-
     .boxed-group-inner {
         border-top: 1px solid #ccc;
-        padding   : 15px;
+        padding: 15px;
     }
 }
 
 .meta {
     .title {
-        display   : inline-block;
-        width     : 100px;
+        display: inline-block;
+        width: 100px;
     }
 }
 
@@ -175,9 +160,9 @@ body {
 }
 
 #partsList {
-  li {
-    margin-bottom: 10px;
-  }
+    li {
+        margin-bottom: 10px;
+    }
 }
 
 .navigation {
